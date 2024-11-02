@@ -29,7 +29,7 @@ func (s *TestTodoServiceSuite) SetupTest() {
 	// NOTE: テスト用ユーザの作成
 	user = factories.UserFactory.MustCreateWithOption(map[string]interface{}{"Email": "test@example.com"}).(*models.User)
 	if err := user.Insert(ctx, DBCon, boil.Infer()); err != nil {
-		s.T().Fatalf("failed to create test user %v", err)
+		s.T().Fatalf("failed to create user %v", err)
 	}
 
 	testTodoService = NewTodoService(DBCon)
