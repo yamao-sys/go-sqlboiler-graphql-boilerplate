@@ -79,7 +79,7 @@ jobs:
 
       - name: test
         working-directory: ./app
-        run: godotenv -f /app/.env.test go test -v ./...
+        run: make run-test-ci
 
       - name: Build
         working-directory: ./app

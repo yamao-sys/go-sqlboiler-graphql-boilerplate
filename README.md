@@ -101,6 +101,12 @@ make gen-gql
 
 - 自動生成されたResolverに処理を書いていく
 
+- DataLoaderの実装
+	- GraphQLではネストしたデータ(特にアソシエーション)を取得する際にN+1が発生しがち
+	- DataLoaderをMiddlewareに組み込んで使用することにより、N+1を防ぐ
+	- <https://github.com/yamao-sys/go-sqlboiler-graphql-boilerplate/blob/main/app/lib/dataloaders/dataloaders.go>
+	- 参考: https://gqlgen.com/reference/dataloaders/
+
 ## 設計方針
 - Resolver - Serviceのレイヤードアーキテクチャ
 	- ロジックはServiceに寄せる
