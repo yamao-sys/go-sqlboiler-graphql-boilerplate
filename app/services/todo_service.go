@@ -10,7 +10,6 @@ import (
 
 	"app/validator"
 
-	// "github.com/go-playground/validator/v10"
 	"github.com/volatiletech/null/v8"
 	"github.com/volatiletech/sqlboiler/v4/boil"
 	"github.com/volatiletech/sqlboiler/v4/queries/qm"
