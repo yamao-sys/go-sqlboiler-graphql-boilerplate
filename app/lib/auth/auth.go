@@ -6,6 +6,7 @@ import (
 	"database/sql"
 	"fmt"
 	"net/http"
+	"os"
 
 	"github.com/golang-jwt/jwt"
 )
@@ -40,7 +41,7 @@ func Middleware(next http.Handler, db *sql.DB) http.Handler {
 				return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])
 			}
 
-			return []byte("abcdefghijklmn"), nil
+			return []byte(os.Getenv("JWT_TOKEN_KEY")), nil
 		})
 		if err != nil {
 			next.ServeHTTP(w, r)

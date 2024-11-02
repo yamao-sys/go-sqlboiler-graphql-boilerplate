@@ -8,6 +8,7 @@ import (
 	"context"
 	"database/sql"
 	"fmt"
+	"os"
 	"time"
 
 	"github.com/dgrijalva/jwt-go"
@@ -77,7 +78,7 @@ func (as *authService) SignIn(ctx context.Context, requestParams model.SignInInp
 		"exp":     time.Now().Add(time.Hour * 24).Unix(),
 	})
 	// TODO: JWT_SECRETを環境変数に切り出す
-	tokenString, err := token.SignedString([]byte("abcdefghijklmn"))
+	tokenString, err := token.SignedString([]byte(os.Getenv("JWT_TOKEN_KEY")))
 	if err != nil {
 		return "", &models.User{}, view.NewInternalServerErrorView(err)
 	}
@@ -96,7 +97,7 @@ func (as *authService) GetAuthUser(ctx *gin.Context) (*models.User, error) {
 			return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])
 		}
 
-		return []byte("abcdefghijklmn"), nil
+		return []byte(os.Getenv("JWT_TOKEN_KEY")), nil
 	})
 	if err != nil {
 		return &models.User{}, fmt.Errorf("failt jwt parse")
