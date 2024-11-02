@@ -17,3 +17,9 @@ gen-gql:
 	@go get github.com/99designs/gqlgen/internal/imports@v0.17.55
 	@go get github.com/99designs/gqlgen@v0.17.55
 	@go run github.com/99designs/gqlgen
+
+run-server:
+	@godotenv -f /app/.env go run server.go
+
+run-test:
+	@godotenv -f /app/.env.test.local go test -v ./...
