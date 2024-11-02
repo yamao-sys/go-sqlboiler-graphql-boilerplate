@@ -8,14 +8,14 @@ type User {
 }
 
 input SignUpInput {
-	Name: String!
-	Email: String! 
-	Password: String!
+	name: String!
+	email: String! 
+	password: String!
 }
 
 input SignInInput {
-	Email: String!
-	Password: String!
+	email: String!
+	password: String!
 }
 
 # extend type Query {

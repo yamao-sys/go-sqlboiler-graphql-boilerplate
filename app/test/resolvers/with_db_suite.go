@@ -66,8 +66,8 @@ func (s *WithDBSuite) SignIn() {
 	query := map[string]interface{}{
 		"query": `mutation {
             signIn(input: {
-                Email: "test@example.com",
-                Password: "password"
+                email: "test@example.com",
+                password: "password"
             }) {
                 id,
                 name,
