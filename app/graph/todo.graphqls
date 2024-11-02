@@ -4,6 +4,7 @@ type Todo {
 	content: String!
 	createdAt: DateTime!
 	updatedAt: DateTime!
+	user: User!
 }
 
 input CreateTodoInput {

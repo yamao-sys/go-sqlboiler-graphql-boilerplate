@@ -197,7 +197,10 @@ func (s *TestTodoResolverSuite) TestFetchTodo() {
                 title,
                 content,
                 createdAt,
-				updatedAt
+				updatedAt,
+				user {
+					id
+				}
             }
         }`,
 	}
@@ -213,6 +216,7 @@ func (s *TestTodoResolverSuite) TestFetchTodo() {
 	_ = json.Unmarshal(res.Body.Bytes(), &responseBody)
 	assert.Contains(s.T(), responseBody["data"], "fetchTodo")
 	assert.Equal(s.T(), float64(testTodo.ID), responseBody["data"]["fetchTodo"]["id"])
+	assert.Contains(s.T(), responseBody["data"]["fetchTodo"]["user"], "id")
 }
 
 func (s *TestTodoResolverSuite) TestFetchTodo_NotFound() {
@@ -232,7 +236,10 @@ func (s *TestTodoResolverSuite) TestFetchTodo_NotFound() {
                 title,
                 content,
                 createdAt,
-				updatedAt
+				updatedAt,
+				user {
+					id
+				}
             }
         }`,
 	}
@@ -264,7 +271,10 @@ func (s *TestTodoResolverSuite) TestFetchTodoLists_Unauthorized() {
                 title,
                 content,
                 createdAt,
-				updatedAt
+				updatedAt,
+				user {
+					id
+				}
             }
         }`,
 	}
@@ -308,7 +318,10 @@ func (s *TestTodoResolverSuite) TestFetchTodoLists() {
                 title,
                 content,
                 createdAt,
-				updatedAt
+				updatedAt,
+				user {
+					id
+				}
             }
         }`,
 	}
@@ -323,6 +336,7 @@ func (s *TestTodoResolverSuite) TestFetchTodoLists() {
 	responseBody := make(map[string](map[string]([]map[string]interface{})))
 	_ = json.Unmarshal(res.Body.Bytes(), &responseBody)
 	assert.Len(s.T(), responseBody["data"]["fetchTodoLists"], 2)
+	assert.Contains(s.T(), responseBody["data"]["fetchTodoLists"][0]["user"], "id")
 }
 
 func (s *TestTodoResolverSuite) TestFetchTodoLists_CountZero() {
@@ -337,7 +351,10 @@ func (s *TestTodoResolverSuite) TestFetchTodoLists_CountZero() {
                 title,
                 content,
                 createdAt,
-				updatedAt
+				updatedAt,
+				user {
+					id
+				}
             }
         }`,
 	}
