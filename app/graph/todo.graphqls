@@ -1,0 +1,28 @@
+type Todo {
+	id: ID!
+	title: String!
+	content: String!
+	createdAt: DateTime!
+	updatedAt: DateTime!
+}
+
+input CreateTodoInput {
+	title: String!
+	content: String!
+}
+
+input UpdateTodoInput {
+	title: String!
+	content: String!
+}
+
+extend type Query {
+	fetchTodo(id: ID!): Todo!
+	fetchTodoLists: [Todo!]!
+}
+
+extend type Mutation {
+	createTodo(input: CreateTodoInput!): Todo!
+	updateTodo(id: ID!, input: UpdateTodoInput!): Todo!
+	deleteTodo(id: ID!): ID!
+}
