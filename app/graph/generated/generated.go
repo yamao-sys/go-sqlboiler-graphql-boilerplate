@@ -437,14 +437,14 @@ extend type Mutation {
 }
 
 input SignUpInput {
-	Name: String!
-	Email: String! 
-	Password: String!
+	name: String!
+	email: String! 
+	password: String!
 }
 
 input SignInInput {
-	Email: String!
-	Password: String!
+	email: String!
+	password: String!
 }
 
 # extend type Query {
@@ -3639,22 +3639,22 @@ func (ec *executionContext) unmarshalInputSignInInput(ctx context.Context, obj i
 		asMap[k] = v
 	}
 
-	fieldsInOrder := [...]string{"Email", "Password"}
+	fieldsInOrder := [...]string{"email", "password"}
 	for _, k := range fieldsInOrder {
 		v, ok := asMap[k]
 		if !ok {
 			continue
 		}
 		switch k {
-		case "Email":
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("Email"))
+		case "email":
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("email"))
 			data, err := ec.unmarshalNString2string(ctx, v)
 			if err != nil {
 				return it, err
 			}
 			it.Email = data
-		case "Password":
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("Password"))
+		case "password":
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("password"))
 			data, err := ec.unmarshalNString2string(ctx, v)
 			if err != nil {
 				return it, err
@@ -3673,29 +3673,29 @@ func (ec *executionContext) unmarshalInputSignUpInput(ctx context.Context, obj i
 		asMap[k] = v
 	}
 
-	fieldsInOrder := [...]string{"Name", "Email", "Password"}
+	fieldsInOrder := [...]string{"name", "email", "password"}
 	for _, k := range fieldsInOrder {
 		v, ok := asMap[k]
 		if !ok {
 			continue
 		}
 		switch k {
-		case "Name":
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("Name"))
+		case "name":
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("name"))
 			data, err := ec.unmarshalNString2string(ctx, v)
 			if err != nil {
 				return it, err
 			}
 			it.Name = data
-		case "Email":
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("Email"))
+		case "email":
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("email"))
 			data, err := ec.unmarshalNString2string(ctx, v)
 			if err != nil {
 				return it, err
 			}
 			it.Email = data
-		case "Password":
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("Password"))
+		case "password":
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("password"))
 			data, err := ec.unmarshalNString2string(ctx, v)
 			if err != nil {
 				return it, err

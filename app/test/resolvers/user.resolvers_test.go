@@ -40,9 +40,9 @@ func (s *TestUserResolverSuite) TestSignUp() {
 	query := map[string]interface{}{
 		"query": `mutation {
             signUp(input: {
-                Name: "test name 1",
-                Email: "test@example.com",
-                Password: "password"
+                name: "test name 1",
+                email: "test@example.com",
+                password: "password"
             }) {
                 id,
                 name,
@@ -74,9 +74,9 @@ func (s *TestUserResolverSuite) TestSignUp_ValidationError() {
 	query := map[string]interface{}{
 		"query": `mutation {
             signUp(input: {
-                Name: "test name 1",
-                Email: "",
-                Password: "password"
+                name: "test name 1",
+                email: "",
+                password: "password"
             }) {
                 id,
                 name,
@@ -95,7 +95,7 @@ func (s *TestUserResolverSuite) TestSignUp_ValidationError() {
 	responseBody := make(map[string]([1]map[string]map[string]interface{}))
 	_ = json.Unmarshal(res.Body.Bytes(), &responseBody)
 	assert.Equal(s.T(), float64(400), responseBody["errors"][0]["extensions"]["code"])
-	assert.Contains(s.T(), responseBody["errors"][0]["extensions"]["error"], "Email")
+	assert.Contains(s.T(), responseBody["errors"][0]["extensions"]["error"], "email")
 
 	// NOTE: ユーザが作成されていないことを確認
 	isExistUser, _ := models.Users(
@@ -115,8 +115,8 @@ func (s *TestUserResolverSuite) TestSignIn() {
 	query := map[string]interface{}{
 		"query": `mutation {
             signIn(input: {
-                Email: "test@example.com",
-                Password: "password"
+                email: "test@example.com",
+                password: "password"
             }) {
                 id,
                 name,

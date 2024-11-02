@@ -14,14 +14,14 @@ type Query struct {
 }
 
 type SignInInput struct {
-	Email    string `json:"Email"`
-	Password string `json:"Password"`
+	Email    string `json:"email"`
+	Password string `json:"password"`
 }
 
 type SignUpInput struct {
-	Name     string `json:"Name"`
-	Email    string `json:"Email"`
-	Password string `json:"Password"`
+	Name     string `json:"name"`
+	Email    string `json:"email"`
+	Password string `json:"password"`
 }
 
 type UpdateTodoInput struct {
