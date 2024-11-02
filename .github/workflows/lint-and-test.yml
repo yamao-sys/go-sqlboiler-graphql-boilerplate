@@ -79,7 +79,7 @@ jobs:
 
       - name: test
         working-directory: ./app
-        run: make run-test
+        run: make run-test-ci
 
       - name: Build
         working-directory: ./app

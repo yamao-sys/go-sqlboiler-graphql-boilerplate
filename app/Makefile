@@ -23,3 +23,6 @@ run-server:
 
 run-test:
 	@godotenv -f /app/.env.test.local go test -v ./...
+
+run-test-ci:
+	@godotenv -f /app/.env.test go test -v ./...
