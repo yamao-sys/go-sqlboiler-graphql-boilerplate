@@ -1,0 +1,30 @@
+version: '3.9'
+services:
+  api_server:
+    container_name: api_server
+    build:
+      context: ./app
+    volumes:
+      - ./app:/app
+      - ./.env:/app/.env
+      - ./.env.test.local:/app/.env.test.local
+    ports:
+      - 8080:8080
+    depends_on:
+      - db
+    tty: true # コンテナの永続化
+    environment:
+      - TZ=Asia/Tokyo
+
+  db:
+    image: mysql:8.0.28
+    container_name: db
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_PASS}
+      - MYSQL_DATABASE=${MYSQL_DBNAME}
+      - TZ=Asia/Tokyo
+    volumes:
+      - ./db/my.cnf:/etc/mysql/conf.d/my.cnf
+      - ./mysql:/var/lib/mysql
