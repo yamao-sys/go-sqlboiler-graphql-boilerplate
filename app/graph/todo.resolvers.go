@@ -8,6 +8,7 @@ import (
 	"app/graph/generated"
 	"app/graph/model"
 	"app/lib/auth"
+	"app/lib/dataloaders"
 	models "app/models/generated"
 	"app/view"
 	"context"
@@ -81,6 +82,11 @@ func (r *todoResolver) CreatedAt(ctx context.Context, obj *models.Todo) (string,
 // UpdatedAt is the resolver for the updatedAt field.
 func (r *todoResolver) UpdatedAt(ctx context.Context, obj *models.Todo) (string, error) {
 	return obj.UpdatedAt.Format("2006-01-02 15:04:05"), nil
+}
+
+// User is the resolver for the user field.
+func (r *todoResolver) User(ctx context.Context, obj *models.Todo) (*models.User, error) {
+	return dataloaders.GetUser(ctx, strconv.Itoa(obj.UserID))
 }
 
 // Mutation returns generated.MutationResolver implementation.

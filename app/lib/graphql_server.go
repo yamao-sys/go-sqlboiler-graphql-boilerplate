@@ -4,6 +4,7 @@ import (
 	"app/graph"
 	"app/graph/generated"
 	"app/lib/auth"
+	"app/lib/dataloaders"
 	"app/services"
 	"app/view"
 	"context"
@@ -43,6 +44,6 @@ func GetGraphQLHttpHandler(db *sql.DB) http.Handler {
 		return err
 	})
 
-	graphSrv := graph.Middleware(srv)
-	return auth.Middleware(graphSrv, db)
+	dataloaderSrv := dataloaders.Middleware(srv, db)
+	return auth.Middleware(dataloaderSrv, db)
 }
