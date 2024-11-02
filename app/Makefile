@@ -12,5 +12,8 @@ gen-models-mysql:
  		--templates $(GOPATH)/pkg/mod/github.com/volatiletech/sqlboiler/v4@$(BOIL_VER)/templates/main \
  		--templates $(GOPATH)/pkg/mod/github.com/tiendc/sqlboiler-extensions@$(BOIL_EXT_VER)/templates/boilv4/mysql
 
-run-test-mysql:
-	@go run $(PWD)/main/mysql/...
+gen-gql:
+	@go get github.com/99designs/gqlgen/codegen/config@v0.17.55
+	@go get github.com/99designs/gqlgen/internal/imports@v0.17.55
+	@go get github.com/99designs/gqlgen@v0.17.55
+	@go run github.com/99designs/gqlgen
