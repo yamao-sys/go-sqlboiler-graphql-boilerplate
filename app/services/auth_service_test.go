@@ -48,9 +48,11 @@ func (s *TestAuthServiceSuite) TestSignUp() {
 func (s *TestAuthServiceSuite) TestSignUp_ValidationError() {
 	requestParams := model.SignUpInput{Name: "test name 1", Email: "", Password: "password"}
 
-	_, err := testAuthService.SignUp(ctx, requestParams)
+	res, _ := testAuthService.SignUp(ctx, requestParams)
 
-	assert.NotNil(s.T(), err)
+	assert.Len(s.T(), res.ValidationErrors.Name, 0)
+	assert.Len(s.T(), res.ValidationErrors.Email, 1)
+	assert.Len(s.T(), res.ValidationErrors.Password, 0)
 
 	// NOTE: ユーザが作成されていないことを確認
 	isExistUser, _ := models.Users(
@@ -68,9 +70,10 @@ func (s *TestAuthServiceSuite) TestSignIn() {
 
 	requestParams := model.SignInInput{Email: "test@example.com", Password: "password"}
 
-	token, _, err := testAuthService.SignIn(ctx, requestParams)
+	token, validationError, err := testAuthService.SignIn(ctx, requestParams)
 
 	assert.NotNil(s.T(), token)
+	assert.Nil(s.T(), validationError)
 	assert.Nil(s.T(), err)
 }
 
@@ -83,10 +86,11 @@ func (s *TestAuthServiceSuite) TestSignIn_NotFoundError() {
 
 	requestParams := model.SignInInput{Email: "test_1@example.com", Password: "password"}
 
-	token, _, err := testAuthService.SignIn(ctx, requestParams)
+	token, validationError, err := testAuthService.SignIn(ctx, requestParams)
 
 	assert.Empty(s.T(), token)
-	assert.NotNil(s.T(), err)
+	assert.NotNil(s.T(), validationError)
+	assert.Nil(s.T(), err)
 }
 
 func TestAuthService(t *testing.T) {

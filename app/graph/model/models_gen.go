@@ -2,9 +2,27 @@
 
 package model
 
+import (
+	models "app/models/generated"
+)
+
+type CheckSignedInResponse struct {
+	IsSignedIn bool `json:"isSignedIn"`
+}
+
 type CreateTodoInput struct {
 	Title   string `json:"title"`
 	Content string `json:"content"`
+}
+
+type CreateTodoResponse struct {
+	ID               string                     `json:"id"`
+	ValidationErrors *CreateTodoValidationError `json:"validationErrors"`
+}
+
+type CreateTodoValidationError struct {
+	Title   []string `json:"title"`
+	Content []string `json:"content"`
 }
 
 type Mutation struct {
@@ -18,13 +36,38 @@ type SignInInput struct {
 	Password string `json:"password"`
 }
 
+type SignInResponse struct {
+	ValidationError string `json:"validationError"`
+}
+
 type SignUpInput struct {
 	Name     string `json:"name"`
 	Email    string `json:"email"`
 	Password string `json:"password"`
 }
 
+type SignUpResponse struct {
+	User             *models.User           `json:"user"`
+	ValidationErrors *SignUpValidationError `json:"validationErrors"`
+}
+
+type SignUpValidationError struct {
+	Name     []string `json:"name"`
+	Email    []string `json:"email"`
+	Password []string `json:"password"`
+}
+
 type UpdateTodoInput struct {
 	Title   string `json:"title"`
 	Content string `json:"content"`
+}
+
+type UpdateTodoResponse struct {
+	ID               string                     `json:"id"`
+	ValidationErrors *UpdateTodoValidationError `json:"validationErrors"`
+}
+
+type UpdateTodoValidationError struct {
+	Title   []string `json:"title"`
+	Content []string `json:"content"`
 }

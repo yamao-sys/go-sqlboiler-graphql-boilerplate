@@ -69,10 +69,7 @@ func (s *WithDBSuite) SignIn() {
                 email: "test@example.com",
                 password: "password"
             }) {
-                id,
-                name,
-                email,
-                nameAndEmail
+                validationError
             }
         }`,
 	}
