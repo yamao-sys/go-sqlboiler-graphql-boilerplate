@@ -13,15 +13,33 @@ import (
 )
 
 // SignUp is the resolver for the signUp field.
-func (r *mutationResolver) SignUp(ctx context.Context, input model.SignUpInput) (*models.User, error) {
+func (r *mutationResolver) SignUp(ctx context.Context, input model.SignUpInput) (*model.SignUpResponse, error) {
 	return r.authService.SignUp(ctx, input)
 }
 
 // SignIn is the resolver for the signIn field.
-func (r *mutationResolver) SignIn(ctx context.Context, input model.SignInInput) (*models.User, error) {
-	token, user, err := r.authService.SignIn(ctx, input)
-	auth.SetAuthCookie(ctx, token)
-	return user, err
+func (r *mutationResolver) SignIn(ctx context.Context, input model.SignInInput) (*model.SignInResponse, error) {
+	token, validationError, err := r.authService.SignIn(ctx, input)
+
+	if validationError == nil && err == nil {
+		auth.SetAuthCookie(ctx, token)
+	}
+
+	var responseValidationError string
+	if validationError != nil {
+		responseValidationError = validationError.Error()
+	}
+	return &model.SignInResponse{ValidationError: responseValidationError}, err
+}
+
+// CheckSignedIn is the resolver for the checkSignedIn field.
+func (r *queryResolver) CheckSignedIn(ctx context.Context) (*model.CheckSignedInResponse, error) {
+	user := auth.GetUser(ctx)
+	if user == nil {
+		return &model.CheckSignedInResponse{IsSignedIn: false}, nil
+	}
+
+	return &model.CheckSignedInResponse{IsSignedIn: true}, nil
 }
 
 // CreatedAt is the resolver for the createdAt field.

@@ -17,20 +17,20 @@ import (
 )
 
 // CreateTodo is the resolver for the createTodo field.
-func (r *mutationResolver) CreateTodo(ctx context.Context, input model.CreateTodoInput) (*models.Todo, error) {
+func (r *mutationResolver) CreateTodo(ctx context.Context, input model.CreateTodoInput) (*model.CreateTodoResponse, error) {
 	user := auth.GetUser(ctx)
 	if user == nil {
-		return &models.Todo{}, view.NewUnauthorizedView(fmt.Errorf("unauthorized error"))
+		return nil, view.NewUnauthorizedView(fmt.Errorf("unauthorized error"))
 	}
 
 	return r.todoService.CreateTodo(ctx, input, user.ID)
 }
 
 // UpdateTodo is the resolver for the updateTodo field.
-func (r *mutationResolver) UpdateTodo(ctx context.Context, id string, input model.UpdateTodoInput) (*models.Todo, error) {
+func (r *mutationResolver) UpdateTodo(ctx context.Context, id string, input model.UpdateTodoInput) (*model.UpdateTodoResponse, error) {
 	user := auth.GetUser(ctx)
 	if user == nil {
-		return &models.Todo{}, view.NewUnauthorizedView(fmt.Errorf("unauthorized error"))
+		return nil, view.NewUnauthorizedView(fmt.Errorf("unauthorized error"))
 	}
 
 	intID, _ := strconv.Atoi(id)
@@ -41,7 +41,7 @@ func (r *mutationResolver) UpdateTodo(ctx context.Context, id string, input mode
 func (r *mutationResolver) DeleteTodo(ctx context.Context, id string) (string, error) {
 	user := auth.GetUser(ctx)
 	if user == nil {
-		return id, view.NewUnauthorizedView(fmt.Errorf("unauthorized error"))
+		return "", view.NewUnauthorizedView(fmt.Errorf("unauthorized error"))
 	}
 
 	intID, _ := strconv.Atoi(id)

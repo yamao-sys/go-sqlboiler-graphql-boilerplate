@@ -9,7 +9,7 @@ type User {
 
 input SignUpInput {
 	name: String!
-	email: String! 
+	email: String!
 	password: String!
 }
 
@@ -18,11 +18,30 @@ input SignInInput {
 	password: String!
 }
 
-# extend type Query {
-# 	//
-# }
+type SignUpValidationError {
+	name: [String!]!
+	email: [String!]!
+	password: [String!]!
+}
+
+type SignUpResponse {
+	user: User!
+	validationErrors: SignUpValidationError!
+}
+
+type SignInResponse {
+	validationError: String!
+}
+
+type CheckSignedInResponse {
+	isSignedIn: Boolean!
+}
+
+extend type Query {
+	checkSignedIn: CheckSignedInResponse!
+}
 
 extend type Mutation {
-	signUp(input: SignUpInput!): User!
-	signIn(input: SignInInput!): User!
+	signUp(input: SignUpInput!): SignUpResponse!
+	signIn(input: SignInInput!): SignInResponse!
 }

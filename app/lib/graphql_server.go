@@ -15,6 +15,8 @@ import (
 	"github.com/99designs/gqlgen/graphql"
 	"github.com/99designs/gqlgen/graphql/handler"
 	"github.com/vektah/gqlparser/v2/gqlerror"
+
+	"github.com/rs/cors"
 )
 
 func GetGraphQLHttpHandler(db *sql.DB) http.Handler {
@@ -43,7 +45,12 @@ func GetGraphQLHttpHandler(db *sql.DB) http.Handler {
 
 		return err
 	})
+	
+	c := cors.New(cors.Options{
+		AllowedOrigins:   []string{"http://localhost:3000", "http://localhost:8080"},
+		AllowCredentials: true,
+	})
 
-	dataloaderSrv := dataloaders.Middleware(srv, db)
+	dataloaderSrv := dataloaders.Middleware(c.Handler(srv), db)
 	return auth.Middleware(dataloaderSrv, db)
 }
