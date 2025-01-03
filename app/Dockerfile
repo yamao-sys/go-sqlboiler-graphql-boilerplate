@@ -11,6 +11,9 @@ RUN go mod tidy && \
 	go install github.com/rubenv/sql-migrate/...@latest && \
 	go install github.com/volatiletech/sqlboiler/v4@latest && \
 	go install github.com/volatiletech/sqlboiler/v4/drivers/sqlboiler-mysql@latest && \
-	go install github.com/joho/godotenv/cmd/godotenv@latest
+	go install github.com/joho/godotenv/cmd/godotenv@latest && \
+	go install github.com/air-verse/air@latest
 
 RUN apk add --update make
+
+CMD ["air", "-c", ".air.toml"]
