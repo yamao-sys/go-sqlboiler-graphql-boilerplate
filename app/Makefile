@@ -2,6 +2,20 @@ PATH := $(PATH):$(GOPATH)/bin
 BOIL_VER := v4.16.2
 BOIL_EXT_VER := v0.8.0
 
+create-migration:
+	cd db && godotenv -f /app/.env sql-migrate new -env="mysql" ${FILENAME} && cd /app
+
+migrate:
+	cd db && godotenv -f /app/.env sql-migrate up -env="mysql" && cd /app
+
+test-local:
+	cd db && godotenv -f /app/.env sql-migrate up -env="mysql" && cd /app
+	godotenv -f /app/.env.test.local go test -v ./... -p 1
+
+test-ci:
+	cd db && godotenv -f /app/.env.test sql-migrate up -env="mysql" && cd ..
+	godotenv -f /app/.env.test go test -v ./... -p 1
+
 prepare-sqlboiler:
 	@go get -u github.com/tiendc/sqlboiler-extensions@$(BOIL_EXT_VER)
 	@go install github.com/volatiletech/sqlboiler/v4@$(BOIL_VER)
@@ -17,12 +31,3 @@ gen-gql:
 	@go get github.com/99designs/gqlgen/internal/imports@v0.17.55
 	@go get github.com/99designs/gqlgen@v0.17.55
 	@go run github.com/99designs/gqlgen
-
-run-server:
-	@godotenv -f /app/.env go run server.go
-
-run-test:
-	@godotenv -f /app/.env.test.local go test -v ./...
-
-run-test-ci:
-	@godotenv -f /app/.env.test go test -p 1 -v ./...
