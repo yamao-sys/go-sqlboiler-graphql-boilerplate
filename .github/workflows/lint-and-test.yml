@@ -73,14 +73,6 @@ jobs:
           sudo mkdir /app
           sudo cp .env.test /app/.env.test
 
-      - name: Setup test database
-        working-directory: ./app/db
-        run: godotenv -f /app/.env.test sql-migrate up -env="mysql"
-
       - name: test
         working-directory: ./app
-        run: make run-test-ci
-
-      - name: Build
-        working-directory: ./app
-        run: go build -v ./...
+        run: make test-ci
