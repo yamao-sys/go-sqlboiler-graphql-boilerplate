@@ -6,6 +6,7 @@ Go SQLboilerのGraphQLのボイラープレート
 - sqlboiler
 - sql-migrate
 - gqlgen
+- air
 - ozzo-validation
 - godotenv
 - go-txdb
@@ -59,27 +60,18 @@ docker-compose exec api_server sh
 
 マイグレーションファイルの作成
 ```
-cd db
-
-godotenv -f /app/.env sql-migrate new -env="mysql" <filename>
+make create-migration FILENAME=<filename>
 ```
 
 マイグレーション実行
 ```
-cd db
-
-godotenv -f /app/.env sql-migrate up -env="mysql"
+make migrate
 ```
 
 ### 4. Webサーバの起動
-- 2の起動・コンテナに入った上で、以下のコマンドを実行
-```
-cd /app
+air によりホットリロード形式で自動起動
 
-godotenv -f /app.env go run server.go
-```
-
-4により、Webサーバの起動ができたら、graphiqlでアクセスができていることを確認
+graphiqlでアクセスができていることを確認
 
 http://localhost:8080
 
@@ -130,17 +122,10 @@ make gen-gql
 
 ## テスト実行
 ### テスト用DBの作成・マイグレーション
-- テスト用のDBをdbコンテナのホストにログインし、DB名`go_sqlboiler_graphql_boilerplate_test`で作成する
-- DBを作成した上で、api_serverコンテナに入った上で、以下のコマンドを実行
-```
-cd db
-
-# テスト用のDBのマイグレーション
-godotenv -f /app/.env.test.local sql-migrate up -env="mysql"
-```
+dbコンテナのホストにログインし、DB名`go_sqlboiler_graphql_boilerplate_test`で作成する
 
 ### テスト実行
 api_serverコンテナに入った上で、以下のコマンドを実行
 ```
-godotenv -f /app/.env.test.local go test -v ./...
+make test-local
 ```
