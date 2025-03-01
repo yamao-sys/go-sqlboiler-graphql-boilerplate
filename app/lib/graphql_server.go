@@ -4,6 +4,7 @@ import (
 	"app/graph"
 	"app/graph/generated"
 	"app/lib/auth"
+	"app/lib/csrf"
 	"app/lib/dataloaders"
 	"app/services"
 	"app/view"
@@ -45,12 +46,12 @@ func GetGraphQLHttpHandler(db *sql.DB) http.Handler {
 
 		return err
 	})
-	
+
 	c := cors.New(cors.Options{
 		AllowedOrigins:   []string{"http://localhost:3000", "http://localhost:8080"},
 		AllowCredentials: true,
 	})
 
 	dataloaderSrv := dataloaders.Middleware(c.Handler(srv), db)
-	return auth.Middleware(dataloaderSrv, db)
+	return csrf.Middleware(auth.Middleware(dataloaderSrv, db))
 }
