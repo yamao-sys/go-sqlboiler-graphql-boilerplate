@@ -12,6 +12,7 @@ import (
 	"database/sql"
 	"errors"
 	"net/http"
+	"os"
 
 	"github.com/99designs/gqlgen/graphql"
 	"github.com/99designs/gqlgen/graphql/handler"
@@ -48,7 +49,7 @@ func GetGraphQLHttpHandler(db *sql.DB) http.Handler {
 	})
 
 	c := cors.New(cors.Options{
-		AllowedOrigins:   []string{"http://localhost:3000", "http://localhost:8080"},
+		AllowedOrigins:   []string{os.Getenv("CLIENT_ORIGIN"), os.Getenv("ORIGIN")},
 		AllowCredentials: true,
 	})
 
