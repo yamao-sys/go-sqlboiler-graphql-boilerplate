@@ -56,6 +56,7 @@ func (s *TestTodoResolverSuite) TestCreateTodo_Unauthorized() {
 	signUpRequestBody, _ := json.Marshal(query)
 	req := httptest.NewRequest(http.MethodPost, "/query", strings.NewReader(string(signUpRequestBody)))
 	req.Header.Set("Content-Type", "application/json")
+	req.Header.Set("Origin", "http://localhost:8080")
 	testTodoGraphQLServerHandler.ServeHTTP(res, req)
 
 	assert.Equal(s.T(), 200, res.Code)
@@ -93,6 +94,7 @@ func (s *TestTodoResolverSuite) TestCreateTodo() {
 	req := httptest.NewRequest(http.MethodPost, "/query", strings.NewReader(string(signUpRequestBody)))
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("Cookie", "token="+token)
+	req.Header.Set("Origin", "http://localhost:8080")
 	testTodoGraphQLServerHandler.ServeHTTP(res, req)
 
 	assert.Equal(s.T(), 200, res.Code)
@@ -128,6 +130,7 @@ func (s *TestTodoResolverSuite) TestCreateTodo_ValidationError() {
 	req := httptest.NewRequest(http.MethodPost, "/query", strings.NewReader(string(signUpRequestBody)))
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("Cookie", "token="+token)
+	req.Header.Set("Origin", "http://localhost:8080")
 	testTodoGraphQLServerHandler.ServeHTTP(res, req)
 
 	assert.Equal(s.T(), 200, res.Code)
@@ -164,6 +167,7 @@ func (s *TestTodoResolverSuite) TestFetchTodo_Unauthorized() {
 	signUpRequestBody, _ := json.Marshal(query)
 	req := httptest.NewRequest(http.MethodPost, "/query", strings.NewReader(string(signUpRequestBody)))
 	req.Header.Set("Content-Type", "application/json")
+	req.Header.Set("Origin", "http://localhost:8080")
 	testTodoGraphQLServerHandler.ServeHTTP(res, req)
 
 	assert.Equal(s.T(), 200, res.Code)
@@ -202,6 +206,7 @@ func (s *TestTodoResolverSuite) TestFetchTodo() {
 	req := httptest.NewRequest(http.MethodPost, "/query", strings.NewReader(string(signUpRequestBody)))
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("Cookie", "token="+token)
+	req.Header.Set("Origin", "http://localhost:8080")
 	testTodoGraphQLServerHandler.ServeHTTP(res, req)
 
 	assert.Equal(s.T(), 200, res.Code)
@@ -241,6 +246,7 @@ func (s *TestTodoResolverSuite) TestFetchTodo_NotFound() {
 	req := httptest.NewRequest(http.MethodPost, "/query", strings.NewReader(string(signUpRequestBody)))
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("Cookie", "token="+token)
+	req.Header.Set("Origin", "http://localhost:8080")
 	testTodoGraphQLServerHandler.ServeHTTP(res, req)
 
 	assert.Equal(s.T(), 200, res.Code)
@@ -275,6 +281,7 @@ func (s *TestTodoResolverSuite) TestFetchTodoLists_Unauthorized() {
 	signUpRequestBody, _ := json.Marshal(query)
 	req := httptest.NewRequest(http.MethodPost, "/query", strings.NewReader(string(signUpRequestBody)))
 	req.Header.Set("Content-Type", "application/json")
+	req.Header.Set("Origin", "http://localhost:8080")
 	testTodoGraphQLServerHandler.ServeHTTP(res, req)
 
 	assert.Equal(s.T(), 200, res.Code)
@@ -323,6 +330,7 @@ func (s *TestTodoResolverSuite) TestFetchTodoLists() {
 	req := httptest.NewRequest(http.MethodPost, "/query", strings.NewReader(string(signUpRequestBody)))
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("Cookie", "token="+token)
+	req.Header.Set("Origin", "http://localhost:8080")
 	testTodoGraphQLServerHandler.ServeHTTP(res, req)
 
 	assert.Equal(s.T(), 200, res.Code)
@@ -356,6 +364,7 @@ func (s *TestTodoResolverSuite) TestFetchTodoLists_CountZero() {
 	req := httptest.NewRequest(http.MethodPost, "/query", strings.NewReader(string(signUpRequestBody)))
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("Cookie", "token="+token)
+	req.Header.Set("Origin", "http://localhost:8080")
 	testTodoGraphQLServerHandler.ServeHTTP(res, req)
 
 	assert.Equal(s.T(), 200, res.Code)
@@ -391,6 +400,7 @@ func (s *TestTodoResolverSuite) TestUpdateTodo_Unauthorized() {
 	signUpRequestBody, _ := json.Marshal(query)
 	req := httptest.NewRequest(http.MethodPost, "/query", strings.NewReader(string(signUpRequestBody)))
 	req.Header.Set("Content-Type", "application/json")
+	req.Header.Set("Origin", "http://localhost:8080")
 	testTodoGraphQLServerHandler.ServeHTTP(res, req)
 
 	assert.Equal(s.T(), 200, res.Code)
@@ -429,6 +439,7 @@ func (s *TestTodoResolverSuite) TestUpdateTodo() {
 	req := httptest.NewRequest(http.MethodPost, "/query", strings.NewReader(string(signUpRequestBody)))
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("Cookie", "token="+token)
+	req.Header.Set("Origin", "http://localhost:8080")
 	testTodoGraphQLServerHandler.ServeHTTP(res, req)
 
 	assert.Equal(s.T(), 200, res.Code)
@@ -476,6 +487,7 @@ func (s *TestTodoResolverSuite) TestUpdateTodo_NotFound() {
 	req := httptest.NewRequest(http.MethodPost, "/query", strings.NewReader(string(signUpRequestBody)))
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("Cookie", "token="+token)
+	req.Header.Set("Origin", "http://localhost:8080")
 	testTodoGraphQLServerHandler.ServeHTTP(res, req)
 
 	assert.Equal(s.T(), 200, res.Code)
@@ -514,6 +526,7 @@ func (s *TestTodoResolverSuite) TestUpdateTodo_ValidationError() {
 	req := httptest.NewRequest(http.MethodPost, "/query", strings.NewReader(string(signUpRequestBody)))
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("Cookie", "token="+token)
+	req.Header.Set("Origin", "http://localhost:8080")
 	testTodoGraphQLServerHandler.ServeHTTP(res, req)
 
 	assert.Equal(s.T(), 200, res.Code)
@@ -538,6 +551,7 @@ func (s *TestTodoResolverSuite) TestDeleteTodo_Unauthorized() {
 	signUpRequestBody, _ := json.Marshal(query)
 	req := httptest.NewRequest(http.MethodPost, "/query", strings.NewReader(string(signUpRequestBody)))
 	req.Header.Set("Content-Type", "application/json")
+	req.Header.Set("Origin", "http://localhost:8080")
 	testTodoGraphQLServerHandler.ServeHTTP(res, req)
 
 	assert.Equal(s.T(), 200, res.Code)
@@ -567,6 +581,7 @@ func (s *TestTodoResolverSuite) TestDeleteTodo() {
 	req := httptest.NewRequest(http.MethodPost, "/query", strings.NewReader(string(signUpRequestBody)))
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("Cookie", "token="+token)
+	req.Header.Set("Origin", "http://localhost:8080")
 	testTodoGraphQLServerHandler.ServeHTTP(res, req)
 
 	assert.Equal(s.T(), 200, res.Code)
@@ -604,6 +619,7 @@ func (s *TestTodoResolverSuite) TestDeleteTodo_NotFound() {
 	req := httptest.NewRequest(http.MethodPost, "/query", strings.NewReader(string(signUpRequestBody)))
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("Cookie", "token="+token)
+	req.Header.Set("Origin", "http://localhost:8080")
 	testTodoGraphQLServerHandler.ServeHTTP(res, req)
 
 	assert.Equal(s.T(), 200, res.Code)

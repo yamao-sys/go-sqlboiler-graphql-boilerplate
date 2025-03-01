@@ -13,15 +13,10 @@ import (
 	"github.com/volatiletech/sqlboiler/v4/boil"
 )
 
-const defaultPort = "8080"
-
 func main() {
 	loadEnv()
 
-	port := os.Getenv("PORT")
-	if port == "" {
-		port = defaultPort
-	}
+	port := os.Getenv("SERVER_PORT")
 
 	// NOTE: DB接続
 	dbCon := db.Init()

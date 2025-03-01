@@ -62,6 +62,7 @@ func (s *TestUserResolverSuite) TestSignUp() {
 	signUpRequestBody, _ := json.Marshal(query)
 	req := httptest.NewRequest(http.MethodPost, "/query", strings.NewReader(string(signUpRequestBody)))
 	req.Header.Set("Content-Type", "application/json")
+	req.Header.Set("Origin", "http://localhost:8080")
 	testUserGraphQLServerHandler.ServeHTTP(res, req)
 
 	assert.Equal(s.T(), 200, res.Code)
@@ -103,6 +104,7 @@ func (s *TestUserResolverSuite) TestSignUp_ValidationError() {
 	signUpRequestBody, _ := json.Marshal(query)
 	req := httptest.NewRequest(http.MethodPost, "/query", strings.NewReader(string(signUpRequestBody)))
 	req.Header.Set("Content-Type", "application/json")
+	req.Header.Set("Origin", "http://localhost:8080")
 	testUserGraphQLServerHandler.ServeHTTP(res, req)
 
 	assert.Equal(s.T(), 200, res.Code)
@@ -137,6 +139,7 @@ func (s *TestUserResolverSuite) TestSignIn() {
 	signInRequestBody, _ := json.Marshal(query)
 	req := httptest.NewRequest(http.MethodPost, "/query", strings.NewReader(string(signInRequestBody)))
 	req.Header.Set("Content-Type", "application/json")
+	req.Header.Set("Origin", "http://localhost:8080")
 	testUserGraphQLServerHandler.ServeHTTP(res, req)
 
 	assert.Equal(s.T(), 200, res.Code)
@@ -160,6 +163,7 @@ func (s *TestUserResolverSuite) TestCheckSignedIn_Ok() {
 	req := httptest.NewRequest(http.MethodPost, "/query", strings.NewReader(string(checkSignedInRequestBody)))
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("Cookie", "token="+token)
+	req.Header.Set("Origin", "http://localhost:8080")
 	testUserGraphQLServerHandler.ServeHTTP(res, req)
 
 	assert.Equal(s.T(), 200, res.Code)
@@ -179,6 +183,7 @@ func (s *TestUserResolverSuite) TestCheckSignedIn_NotOk() {
 	checkSignedInRequestBody, _ := json.Marshal(query)
 	req := httptest.NewRequest(http.MethodPost, "/query", strings.NewReader(string(checkSignedInRequestBody)))
 	req.Header.Set("Content-Type", "application/json")
+	req.Header.Set("Origin", "http://localhost:8080")
 	testUserGraphQLServerHandler.ServeHTTP(res, req)
 
 	assert.Equal(s.T(), 200, res.Code)
