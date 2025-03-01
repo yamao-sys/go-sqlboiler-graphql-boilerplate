@@ -77,6 +77,7 @@ func (s *WithDBSuite) SignIn() {
 	signInRequestBody, _ := json.Marshal(query)
 	req := httptest.NewRequest(http.MethodPost, "/query", strings.NewReader(string(signInRequestBody)))
 	req.Header.Set("Content-Type", "application/json")
+	req.Header.Set("Origin", "http://localhost:8080")
 
 	// NOTE: signInを実行し、tokenに値をセット
 	testGraphQLServerHandler := lib.GetGraphQLHttpHandler(DBCon)
